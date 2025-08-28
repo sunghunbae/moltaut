@@ -35,11 +35,11 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage        = "https://github.com/sunghunbae/MolTaut"
-Repository      = "https://github.com/sunghunbae/MolTaut.git"
-Issues          = "https://github.com/sunghunbae/MolTaut/issues"
-Changelog       = "https://github.com/sunghunbae/MolTaut/blob/master/CHANGELOG.md"
-Documentation   = "https://sunghunbae.github.io/MolTaut/"
+Homepage        = "https://github.com/sunghunbae/moltaut"
+Repository      = "https://github.com/sunghunbae/moltaut.git"
+Issues          = "https://github.com/sunghunbae/moltaut/issues"
+Changelog       = "https://github.com/sunghunbae/moltaut/blob/master/CHANGELOG.md"
+Documentation   = "https://sunghunbae.github.io/moltaut/"
 
 [project.scripts]
 run = "moltaut.cli:run"
