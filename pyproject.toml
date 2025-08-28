@@ -8,10 +8,11 @@ dynamic = ["version"]
 requires-python = ">=3.11"
 dependencies = [
     "torch",
-    "torch-geometric",
-    "torch-scatter",
+    "torch_geometric",
+    "torch_scatter",
     "torchani",
     "numpy",
+    "openbabel",
     "freesasa",
     "ase",
     "pytest",
