@@ -1,0 +1,3 @@
+- sub modules: molgpka, molsolv
+- fixed multiprocessing.Pool related issue
+- fixed modify_acid() error

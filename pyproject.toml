@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "moltaut"
+dynamic = ["version"]
+requires-python = ">=3.11"
+dependencies = [
+    "torch",
+    "torch-geometric",
+    "torch-scatter",
+    "torchani",
+    "numpy",
+    "freesasa",
+    "ase",
+    "pytest",
+    ]
+authors = [{name = "Sung-Hun Bae", email="sunghun.bae@gmail.com"}, ]
+maintainers = [{name = "Sung-Hun Bae", email="sunghun.bae@gmail.com"}, ]
+description = "MolTaut State Generator"
+readme = "README.md"
+license = "MIT"
+keywords = [
+    "MolTaut",
+    "AIMNet2",
+    "neural-network-potential",
+    "machine-learning-potential",
+    ]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage        = "https://github.com/sunghunbae/MolTaut"
+Repository      = "https://github.com/sunghunbae/MolTaut.git"
+Issues          = "https://github.com/sunghunbae/MolTaut/issues"
+Changelog       = "https://github.com/sunghunbae/MolTaut/blob/master/CHANGELOG.md"
+Documentation   = "https://sunghunbae.github.io/MolTaut/"
+
+[project.scripts]
+run = "moltaut.cli:run"
+
+[tool.setuptools.dynamic]
+version = {attr = "moltaut.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"moltaut"   = [
+    "smirks*.txt",
+    "molsolv/models/*.pth", 
+    "molgpka/*.tsv",
+    "molgpka/models/*.pth",
+]
