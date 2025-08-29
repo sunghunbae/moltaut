@@ -174,8 +174,7 @@ def func(smi, cutmol, energy_range=2.8, ph=7.0, tph=1.0, num_confs=3):
     else:
         dfs_res_lower, dfs_res_upper = generate_tautomer_non_cutmol(
             mm, energy_range=energy_range, num_confs=num_confs)
-    dfs_res_lower[2] = dfs_res_lower[0].map(
-        lambda x: protonate_mol(x, ph, tph))
+    dfs_res_lower[2] = dfs_res_lower[0].map(lambda x: protonate_mol(x, ph, tph))
     return dfs_res_lower, dfs_res_upper
 
 
