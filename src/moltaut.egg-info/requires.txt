@@ -1,6 +1,6 @@
 torch
-torch-geometric
-torch-scatter
+torch_geometric
+torch_scatter
 torchani
 numpy
 freesasa

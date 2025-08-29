@@ -8,6 +8,7 @@ from moltaut.cli import get_lower_energy_tauts, low_energy_tautomers
 from rdkit import Chem
 from rdkit.Chem.MolStandardize import rdMolStandardize
 
+
 def test_enumerate_tauts():
     for smi in [
         "Oc1ccccc1",
@@ -32,7 +33,7 @@ def test_enumerate_tauts():
         # MolTaut is more thorough in enumeration
         # in other words, it generates unrealistic ones as well.
         ms = enumerate_tauts(m)
-        results = [t.smi for t in ms]
+        results = [Chem.MolToSmiles(Chem.MolFromSmiles(t.smi)) for t in ms]
         
         print("Input:", smi)
         for _ in results:
@@ -46,8 +47,6 @@ def test_enumerate_tauts():
             print(_)
         
         print()
-        
-        
 
 
 def test_cut_mol():
@@ -101,10 +100,7 @@ def test_tautomer():
     print([t.smi for t in ms])
 
 
-
-
-
-def test_get_vmrs():
+def test_get_vmrs(): # what is vmrs?
     smi = "COC(=O)c1ccc(O)cc1"
     #smi = "CN(C)CCCN1C2=CC=CC=C2OC2=C1C=C(C=C2)C(C)=O"
     #smi = "c1ccccc1C(C(=O)O)NC(=O)C(NC(=O)CCC(N)C(=O)O)CSCc2ccccc2"
@@ -115,7 +111,7 @@ def test_get_vmrs():
 
 
 def test_rank_tauts():
-    smi = "Brc1cnn2c1nc(cc2NCc1cccnc1)c1ccccc1"
+    smi = "Clc1cnn2c1nc(cc2NCc1cccnc1)c1ccccc1"
     #smi = "Cc1n[nH]c(c12)OC(N)=C(C#N)C2(C(C)C)c(cc3C(F)(F)F)cc(c3)N4CCCC4"
     #smi = "CS(=O)(=O)c1ccc(cc1)c1cccn2c1nc(n2)Nc1ccc(cc1)N1CCOCC1"
     vmrs = enumerate_vmrs(smi)

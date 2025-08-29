@@ -10,6 +10,7 @@ src/moltaut/get_vmrs.py
 src/moltaut/rank_tautomer.py
 src/moltaut/smirks_transform_all.txt
 src/moltaut/tautomer.py
+src/moltaut/workflow.py
 src/moltaut.egg-info/PKG-INFO
 src/moltaut.egg-info/SOURCES.txt
 src/moltaut.egg-info/dependency_links.txt

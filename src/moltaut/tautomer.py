@@ -1,29 +1,33 @@
-from collections import namedtuple
+from collections import namedtuple, defaultdict
 from rdkit import Chem
 from rdkit.Chem import AllChem
 from rdkit import RDLogger
 
 import copy
-from importlib.resources import files
+from pathlib import Path
+from importlib.resources import files, as_file
 
 
-transform_path = files('moltaut').joinpath("smirks_transform_all.txt")
+transform_path = files('moltaut') / "smirks_transform_all.txt"
 
 RDLogger.DisableLog('rdApp.*')
 
+Tautomers = namedtuple('Tautomers', ['smi', 'smirks', 'mol'])
 
-with open(transform_path, "r") as f:
-    conts = f.readlines()
-smirks = [line.strip("\n").split("\t") for line in conts]
+# SMIRKS (SMILES ReaKtion Specification)
+with as_file(transform_path) as path:
+    with open(path, 'r') as f:
+        conts = f.readlines()
+        smirks = [line.strip("\n").split("\t") for line in conts]
 
 ps = Chem.SmilesParserParams()
 ps.removeHs = False
 
-def uncharge_mol(smi):
-    mol = Chem.MolFromSmiles(smi)
-    for i in range(5):
-        mol = unc.uncharge(mol)
-    return Chem.MolToSmiles(mol)
+# def uncharge_mol(smi):
+#     mol = Chem.MolFromSmiles(smi)
+#     for i in range(5):
+#         mol = unc.uncharge(mol)
+#     return Chem.MolToSmiles(mol)
 
 
 def init_dict(smirks):
@@ -119,7 +123,7 @@ def multi_kekulize(m, psmarts=["O=[N+]([O-])"]):
         ms.append(nm)
     return ms
 
-def is_include_element(mol, element_list=[15]):
+def is_include_element(mol, element_list=[15]): # Phosphorous(15)
     elements = any([at.GetAtomicNum() in element_list for at in mol.GetAtoms()])
     if elements:
         return True
@@ -178,20 +182,38 @@ def enumerate_tauts(om):
     return ntauts
 
 
+    
 if __name__ == "__main__":
-    #smi = "Oc1ccccc1"
-    #smi = "COC(=O)c1ccc(O)cc1"
-    # smi = "N#CC1=C(N)Oc2[nH]ncc2C1"
-    #smi = "OSc1ncc[nH]1"
-    #smi = "O=C(Cc1ccccc1)c1cccs1"
-    #smi = "Oc1nc2ccccc2nc1"
-    #smi = "O=C1NN=CN1"
-    #smi = "OC(=O)COC(=O)N[C@]12CC[C@H](CC1)[C@@H]1[C@H]2C(=O)N(C1=O)c1ccc(cc1)NC(=O)C"
-    #smi = "OCc(n1)cnc(c12)nc(N)[nH]c2=O"
-    #smi = "O=[N+]([O-])c1ccc2cn[nH]c2c1"
-    #smi = "c1ccc2cn[nH]c2c1"
-    smi = "Nc1nc(O)c2[nH]nnc2n1"
-    m = Chem.MolFromSmiles(smi)
-    ms = enumerate_tauts(m)
-    print(ms)
-    print([t.smi for t in ms])
+    from workflow import Tautomer
+
+    for smi in [
+        "Nc1nc(O)c2[nH]nnc2n1",
+        "Oc1ccccc1",
+        "COC(=O)c1ccc(O)cc1",
+        "N#CC1=C(N)Oc2[nH]ncc2C1",
+        "OSc1ncc[nH]1",
+        "O=C(Cc1ccccc1)c1cccs1",
+        "Oc1nc2ccccc2nc1",
+        "O=C1NN=CN1",
+        "OC(=O)COC(=O)N[C@]12CC[C@H](CC1)[C@@H]1[C@H]2C(=O)N(C1=O)c1ccc(cc1)NC(=O)C",
+        "OCc(n1)cnc(c12)nc(N)[nH]c2=O",
+        "O=[N+]([O-])c1ccc2cn[nH]c2c1",
+        "c1ccc2cn[nH]c2c1",
+        ]:
+        print(smi, end=" ")
+        
+        m = Chem.MolFromSmiles(smi)
+        smi = Chem.MolToSmiles(m)
+        
+        ms = enumerate_tauts(m)
+        smis1 = [t.smi for t in ms]
+        print(f"Original[{len(smis1)},{len(set(smis1))}]", flush=True, end= " ")
+
+        smis2 = Tautomer(smi).enumerate()
+        print(f"Tautomer()[{len(smis2)},{len(set(smis2))}]", flush=True, end=" ")
+        if len(smis1) >= len(smis2):
+            result_set = set(smis1).difference(set(smis2))
+            print("diff.=", result_set)
+        else:
+            result_set = set(smis2).difference(set(smis1))
+            print("diff.=", result_set)

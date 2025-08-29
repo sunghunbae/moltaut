@@ -5,11 +5,11 @@ Summary: MolTaut State Generator
 Author-email: Sung-Hun Bae <sunghun.bae@gmail.com>
 Maintainer-email: Sung-Hun Bae <sunghun.bae@gmail.com>
 License-Expression: MIT
-Project-URL: Homepage, https://github.com/sunghunbae/MolTaut
-Project-URL: Repository, https://github.com/sunghunbae/MolTaut.git
-Project-URL: Issues, https://github.com/sunghunbae/MolTaut/issues
-Project-URL: Changelog, https://github.com/sunghunbae/MolTaut/blob/master/CHANGELOG.md
-Project-URL: Documentation, https://sunghunbae.github.io/MolTaut/
+Project-URL: Homepage, https://github.com/sunghunbae/moltaut
+Project-URL: Repository, https://github.com/sunghunbae/moltaut.git
+Project-URL: Issues, https://github.com/sunghunbae/moltaut/issues
+Project-URL: Changelog, https://github.com/sunghunbae/moltaut/blob/master/CHANGELOG.md
+Project-URL: Documentation, https://sunghunbae.github.io/moltaut/
 Keywords: MolTaut,AIMNet2,neural-network-potential,machine-learning-potential
 Classifier: Development Status :: 3 - Alpha
 Classifier: Intended Audience :: Developers
@@ -19,8 +19,8 @@ Requires-Python: >=3.11
 Description-Content-Type: text/markdown
 License-File: LICENSE.txt
 Requires-Dist: torch
-Requires-Dist: torch-geometric
-Requires-Dist: torch-scatter
+Requires-Dist: torch_geometric
+Requires-Dist: torch_scatter
 Requires-Dist: torchani
 Requires-Dist: numpy
 Requires-Dist: freesasa

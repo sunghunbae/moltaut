@@ -1,22 +1,10 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 import torch
 import torch.nn.functional as F
 
-from torch import nn
-from torch.nn import Linear
-from torch.nn import BatchNorm1d
-from torch.utils.data import Dataset
-from torch_geometric.nn import GCNConv, GATConv
-from torch_geometric.data import Data, DataLoader
-from torch_geometric.nn import global_add_pool, global_mean_pool
+from torch.nn import Linear, BatchNorm1d
+from torch_geometric.nn import GCNConv, global_add_pool
 
 from importlib.resources import files
-
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-root_path = files("moltaut")
 
 n_features = 396
 
@@ -59,7 +47,13 @@ class Net(torch.nn.Module):
         x = global_add_pool(x, batch)
         return x
 
-def load_model():    
+
+def load_model(device: str | None = None):
+    if device is None:
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    root_path = files("moltaut")
+
     nmodel= Net().to(device)
     nmodel_file = root_path.joinpath("molsolv/models/neutral.pth")
     nweights = torch.load(nmodel_file, map_location=device)
@@ -72,4 +66,4 @@ def load_model():
     imodel.load_state_dict(iweights, strict=True)
     imodel.eval()
 
-    return nmodel, imodel
+    return (nmodel, imodel)
