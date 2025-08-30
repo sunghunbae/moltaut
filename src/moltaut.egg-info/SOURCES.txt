@@ -17,6 +17,8 @@ src/moltaut.egg-info/dependency_links.txt
 src/moltaut.egg-info/entry_points.txt
 src/moltaut.egg-info/requires.txt
 src/moltaut.egg-info/top_level.txt
+src/moltaut/batchopt/__init__.py
+src/moltaut/batchopt/batchopt.py
 src/moltaut/molgpka/__init__.py
 src/moltaut/molgpka/predict_pka.py
 src/moltaut/molgpka/protonate.py
