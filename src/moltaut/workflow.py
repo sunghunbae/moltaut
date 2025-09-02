@@ -375,6 +375,9 @@ class Tautomer:
                     protonated_smiles.extend(new_unsmis)
             self.microstates.extend(protonated_smiles)
         
+        # make SMILES unique
+        self.microstates = list(set(self.microstates))
+        
         return self
     
 

@@ -13,6 +13,8 @@ from moltaut.molsolv.models import load_model
 from moltaut.molsolv.descriptor import mol2vec
 from moltaut.molgpka.predict_pka import predict
 
+from batchopt import BatchOptimize
+
 import rdworks
 import torch
 import time
@@ -373,6 +375,9 @@ class Tautomer:
                     protonated_smiles.extend(new_unsmis)
             self.microstates.extend(protonated_smiles)
         
+        # make SMILES unique
+        self.microstates = list(set(self.microstates))
+        
         return self
     
 
@@ -418,7 +423,7 @@ if __name__ == '__main__':
         smi = Chem.MolToSmiles(m)
 
         start_time = time.time()
-        t = Tautomer(smi).enumerate().order().protonate()
+        t = Tautomer(smi).enumerate().order(optimizer=BatchOptimize).protonate()
         end_time = time.time()
         elapsed_time = end_time - start_time
         print(f"Elapsed time: {elapsed_time:.4f} seconds")

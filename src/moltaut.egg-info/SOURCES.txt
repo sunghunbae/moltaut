@@ -2,6 +2,7 @@ LICENSE.txt
 README.md
 pyproject.toml
 src/moltaut/__init__.py
+src/moltaut/batchopt.py
 src/moltaut/cli.py
 src/moltaut/combine_frag.py
 src/moltaut/config.py
@@ -17,8 +18,6 @@ src/moltaut.egg-info/dependency_links.txt
 src/moltaut.egg-info/entry_points.txt
 src/moltaut.egg-info/requires.txt
 src/moltaut.egg-info/top_level.txt
-src/moltaut/batchopt/__init__.py
-src/moltaut/batchopt/batchopt.py
 src/moltaut/molgpka/__init__.py
 src/moltaut/molgpka/predict_pka.py
 src/moltaut/molgpka/protonate.py
